@@ -14,3 +14,12 @@ _book
 *.epub
 *.mobi
 *.pdf
+/CoffeeManagement/.vs
+/CoffeeManagement/Coffee.EntityFramworkCore/obj
+/CoffeeManagement/Coffee.EntityFramworkCore/bin
+/CoffeeManagement/Coffee.Repository/obj
+/CoffeeManagement/Coffee.Repository/bin
+/CoffeeManagement/Coffee.Service/obj
+/CoffeeManagement/Coffee.Service/bin
+/CoffeeManagement/Coffee.WebApi/bin
+/CoffeeManagement/Coffee.WebApi/obj
