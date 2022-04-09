@@ -1,16 +1,14 @@
 ﻿using Coffee.Application.Auth;
 using Coffee.Application.Auth.Dtos;
 using Coffee.Application.Common;
-using Coffee.Application.Common.Dtos;
 using Coffee.Application.Users;
+using Coffee.Application.Users.Dtos;
 using Coffee.Core.Auth;
+using Coffee.Core.BaseModel;
 using Coffee.Core.Helper;
-using Coffee.WebApi.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Coffee.WebApi.Controllers
@@ -95,10 +93,10 @@ namespace Coffee.WebApi.Controllers
         {
             baseParam.FilterString = await _commonService.GetFilterString(baseParam);
             var (res, count) = await _userService.GetListUser(baseParam);
-            return Ok(new
+            return Ok(new ListResult<UserDtos>
             {
-                data = res,
-                totalCount = count
+                Result = res,
+                Count = count
             });
         }
     }

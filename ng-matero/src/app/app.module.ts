@@ -16,10 +16,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { environment } from '@env/environment';
-import { BASE_URL, httpInterceptorProviders, appInitializerProviders } from '@core';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemDataService } from '@shared/in-mem/in-mem-data.service';
 
 // Required for AOT compilation
 export function TranslateHttpLoaderFactory(http: HttpClient) {
@@ -47,15 +45,8 @@ export function TranslateHttpLoaderFactory(http: HttpClient) {
       },
     }),
     // Demo purposes only for GitHub Pages
-    HttpClientInMemoryWebApiModule.forRoot(InMemDataService, {
-      dataEncapsulation: false,
-      passThruUnknownUrl: true,
-    }),
   ],
   providers: [
-    { provide: BASE_URL, useValue: environment.baseUrl },
-    httpInterceptorProviders,
-    appInitializerProviders,
   ],
   bootstrap: [AppComponent],
 })

@@ -10,7 +10,5 @@ export * from './bootstrap/translate-lang.service';
 export * from './bootstrap/sanctum.service';
 
 // Interceptors
-export * from './interceptors';
 
 // Authentication
-export * from './authentication';

@@ -1,5 +1,5 @@
-﻿using Coffee.Application.Common.Dtos;
-using Coffee.Application.Users.Dtos;
+﻿using Coffee.Application.Users.Dtos;
+using Coffee.Core.BaseModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

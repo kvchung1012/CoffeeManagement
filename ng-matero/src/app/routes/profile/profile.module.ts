@@ -7,7 +7,7 @@ import { ProfileOverviewComponent } from './overview/overview.component';
 import { ProfileSettingsComponent } from './settings/settings.component';
 
 const COMPONENTS: any[] = [
-  ProfileLayoutComponent,
+  // ProfileLayoutComponent,
   ProfileOverviewComponent,
   ProfileSettingsComponent,
 ];

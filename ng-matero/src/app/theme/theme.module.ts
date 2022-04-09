@@ -30,7 +30,6 @@ import { CustomizerComponent } from './customizer/customizer.component';
     AdminLayoutComponent,
     AuthLayoutComponent,
     SidebarComponent,
-    UserPanelComponent,
     SidemenuComponent,
     AccordionDirective,
     AccordionItemDirective,

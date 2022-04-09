@@ -1,5 +1,5 @@
-﻿using Coffee.Application.Common.Dtos;
-using Coffee.Application.Users.Dtos;
+﻿using Coffee.Application.Users.Dtos;
+using Coffee.Core.BaseModel;
 using Coffee.Core.DbManager;
 using Dapper;
 using System;
@@ -21,12 +21,7 @@ namespace Coffee.Application.Users
         public async Task<(List<UserDtos>, int)> GetListUser(BaseParamModel baseParam)
         {
             var par = new DynamicParameters();
-            par.Add("@TableConfigName", baseParam.TableConfigName);
-            par.Add("@FilterString", baseParam.FilterString);
-            par.Add("@PageSize", baseParam.PageSize);
-            par.Add("@PageNumber", baseParam.PageNumber);
-            par.Add("@OrderBy", "");
-            par.Add("@TotalCount", 0, System.Data.DbType.Int32, System.Data.ParameterDirection.Output);
+            par.AddBaseParam(baseParam);
             var res = await _db.QueryAsync<UserDtos>("Sp_Get_GetListUsers", par);
             var totalCount = par.Get<int>("@TotalCount");
             return (res, totalCount);

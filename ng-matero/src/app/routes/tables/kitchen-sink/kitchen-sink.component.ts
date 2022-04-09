@@ -139,6 +139,7 @@ export class TablesKitchenSinkComponent implements OnInit {
 
   ngOnInit() {
     this.list = this.dataSrv.getData();
+    console.log(this.list);
     this.isLoading = false;
   }
 

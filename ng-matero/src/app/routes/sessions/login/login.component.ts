@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { filter } from 'rxjs/operators';
-import { AuthService } from '@core/authentication';
+import { AuthService } from '@core/authentication/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -39,19 +39,9 @@ export class LoginComponent implements OnInit {
 
     this.auth
       .login(this.username?.value, this.password?.value, this.rememberMe?.value)
-      .pipe(filter(authenticated => authenticated))
       .subscribe(
-        () => this.router.navigateByUrl('/'),
+        () => this.router.navigateByUrl('/'), 
         (errorRes: HttpErrorResponse) => {
-          if (errorRes.status === 422) {
-            const form = this.loginForm;
-            const errors = errorRes.error.errors;
-            Object.keys(errors).forEach(key => {
-              form.get(key === 'email' ? 'username' : key)?.setErrors({
-                remote: errors[key][0],
-              });
-            });
-          }
           this.isSubmitting = false;
         }
       );

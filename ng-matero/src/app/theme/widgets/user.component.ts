@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { debounceTime, tap } from 'rxjs/operators';
-import { AuthService, User } from '@core/authentication';
 
 @Component({
   selector: 'app-user',
@@ -11,8 +10,8 @@ import { AuthService, User } from '@core/authentication';
       mat-button
       [matMenuTriggerFor]="menu"
     >
-      <img class="matero-avatar" [src]="user.avatar" width="32" alt="avatar" />
-      <span class="matero-username" fxHide.lt-sm>{{ user.name }}</span>
+      <!-- <img class="matero-avatar" [src]="user.avatar" width="32" alt="avatar" />
+      <span class="matero-username" fxHide.lt-sm>{{ user.name }}</span> -->
     </button>
 
     <mat-menu #menu="matMenu">
@@ -32,21 +31,20 @@ import { AuthService, User } from '@core/authentication';
   `,
 })
 export class UserComponent implements OnInit {
-  user!: User;
 
-  constructor(private router: Router, private auth: AuthService, private cdr: ChangeDetectorRef) {}
+  constructor(private router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.auth
-      .user()
-      .pipe(
-        tap(user => (this.user = user)),
-        debounceTime(10)
-      )
-      .subscribe(() => this.cdr.detectChanges());
+    // this.auth
+    //   .user()
+    //   .pipe(
+    //     tap(user => (this.user = user)),
+    //     debounceTime(10)
+    //   )
+    //   .subscribe(() => this.cdr.detectChanges());
   }
 
   logout() {
-    this.auth.logout().subscribe(() => this.router.navigateByUrl('/auth/login'));
+    //this.auth.logout().subscribe(() => this.router.navigateByUrl('/auth/login'));
   }
 }

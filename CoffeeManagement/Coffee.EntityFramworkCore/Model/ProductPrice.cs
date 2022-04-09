@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Coffee.EntityFramworkCore.Model
 {
-    public class ProductPricev : BaseEntity
+    public class ProductPrice : BaseEntity
     {
         public long ProductId { get; set; }
         public decimal Price { get; set; }

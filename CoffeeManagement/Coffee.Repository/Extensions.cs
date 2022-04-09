@@ -1,4 +1,5 @@
 ﻿using Coffee.Application.Auth;
+using Coffee.Application.Category;
 using Coffee.Application.Common;
 using Coffee.Application.Users;
 using Coffee.Core.DbManager;
@@ -16,7 +17,7 @@ namespace Coffee.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddTransient<IDbManager>(provider =>
+            services.AddSingleton<IDbManager>(provider =>
             {
                 var Configuration = provider.GetService<IConfiguration>();
                 return new DbManager(Configuration);
@@ -25,6 +26,9 @@ namespace Coffee.Application
             services.AddTransient<ICommonService, CommonService>();
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IDiscountService, DiscountService>();
             return services;
         }
     }

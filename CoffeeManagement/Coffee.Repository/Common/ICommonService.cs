@@ -1,4 +1,5 @@
 ﻿using Coffee.Application.Common.Dtos;
+using Coffee.Core.BaseModel;
 using Coffee.EntityFramworkCore.Model;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,5 @@ namespace Coffee.Application.Common
     {
         Task<List<SystemTableColumn>> GetTableColumns(string tableName);
         Task<String> GetFilterString(BaseParamModel baseParamModel);
-
-
-
     }
 }

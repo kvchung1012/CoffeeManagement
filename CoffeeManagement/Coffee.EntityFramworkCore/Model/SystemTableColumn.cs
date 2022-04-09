@@ -12,11 +12,13 @@ namespace Coffee.EntityFramworkCore.Model
         public string TableId { get; set; }
         public string ColumnName { get; set; } // tên sau khi join
         public string SqlColumnName { get; set; } // tên nguyên bản trong table
-        public string SqlAlias { get; set; } 
+        public string SqlAlias { get; set; } // Định danh của table
         public string ColumnHeader { get; set; } // tên hiển thị 
         public int DataTypeId { get; set; }
+        public string QueryData { get; set; }
         public bool IsShow { get; set; }
         public bool IsFilter { get; set; }
+        public int Order { get; set; }
         public bool IsDeleted { get; set; }
     }
 }

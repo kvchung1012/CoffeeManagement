@@ -1,4 +1,5 @@
 ﻿using Coffee.Application.Common.Dtos;
+using Coffee.Core.BaseModel;
 using Coffee.Core.DbManager;
 using Coffee.EntityFramworkCore.Model;
 using Dapper;
@@ -33,7 +34,7 @@ namespace Coffee.Application.Common
                 {
                     if(syscol.DataTypeId == ConfigStatus.DataType.IsStringType) // là kiểu chuỗi
                         filter += $"AND {syscol.SqlAlias}.{syscol.SqlColumnName} like N'%{col.Value}%";
-                    else
+                    else if(col.Value != "0")
                         filter += $"AND {syscol.SqlAlias}.{syscol.SqlColumnName} = {col.Value}";
                 }
             }

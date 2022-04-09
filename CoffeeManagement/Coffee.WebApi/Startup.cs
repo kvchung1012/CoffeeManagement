@@ -92,10 +92,22 @@ namespace Coffee.WebApi
             });
 
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "AllowAllOrigins",
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:4200/")
+                                      .AllowAnyOrigin()
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod();
+                                  });
+            });
+
             // DI Service
             services.AddApplication();
 
-
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -111,6 +123,9 @@ namespace Coffee.WebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+
+            app.UseCors("AllowAllOrigins");
 
             app.UseAuthentication();
             app.UseAuthorization();
