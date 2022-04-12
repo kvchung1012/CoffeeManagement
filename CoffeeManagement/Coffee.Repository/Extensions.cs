@@ -2,6 +2,7 @@
 using Coffee.Application.Category;
 using Coffee.Application.Common;
 using Coffee.Application.Users;
+using Coffee.Core.Auth;
 using Coffee.Core.DbManager;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +23,8 @@ namespace Coffee.Application
                 var Configuration = provider.GetService<IConfiguration>();
                 return new DbManager(Configuration);
             });
+
+            //services.AddSingleton<ICheckPermission, CheckPermission>();
             // dependency injection
             services.AddTransient<ICommonService, CommonService>();
             services.AddTransient<IAuthService, AuthService>();

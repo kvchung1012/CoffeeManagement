@@ -47,10 +47,11 @@ namespace Coffee.Core.Auth
             }, out SecurityToken validatedToken);
 
             var jwtToken = (JwtSecurityToken)validatedToken;
-            var userId = jwtToken.Claims.First(x => x.Type == "UserId").Value;
-            var userName = jwtToken.Claims.First(x => x.Type == "UserName").Value;
-            var phone = int.Parse(jwtToken.Claims.First(x => x.Type == "phone").Value);
-            var email = int.Parse(jwtToken.Claims.First(x => x.Type == "email").Value);
+            var userId = jwtToken.Claims.First(x => x.Type == "Id").Value;
+            var fullName = jwtToken.Claims.First(x => x.Type == "FullName").Value;
+            var userName = int.Parse(jwtToken.Claims.First(x => x.Type == "Username").Value);
+            var email = int.Parse(jwtToken.Claims.First(x => x.Type == "Email").Value);
+            var phone = int.Parse(jwtToken.Claims.First(x => x.Type == "Phone").Value);
             var payload = new JwtPayloadModel()
             {
                 Id = long.Parse((jwtToken.Claims.First(x => x.Type == "Id").Value)),

@@ -1,5 +1,6 @@
 ﻿using Coffee.Application.Common.Dtos;
 using Coffee.Core.BaseModel;
+using Coffee.Core.Constant;
 using Coffee.Core.DbManager;
 using Coffee.EntityFramworkCore.Model;
 using Dapper;
@@ -32,10 +33,12 @@ namespace Coffee.Application.Common
                 var syscol = res.Find(x => x.Id == col.ColumnId);
                 if (syscol != null)
                 {
-                    if(syscol.DataTypeId == ConfigStatus.DataType.IsStringType) // là kiểu chuỗi
+                    if(syscol.DataTypeId == Constant.DataTypeColumn.String) // là kiểu chuỗi
                         filter += $"AND {syscol.SqlAlias}.{syscol.SqlColumnName} like N'%{col.Value}%";
-                    else if(col.Value != "0")
+                    else if(syscol.DataTypeId == Constant.DataTypeColumn.Number || syscol.DataTypeId == Constant.DataTypeColumn.DateTime || syscol.DataTypeId == Constant.DataTypeColumn.Select)
                         filter += $"AND {syscol.SqlAlias}.{syscol.SqlColumnName} = {col.Value}";
+                    else if(syscol.DataTypeId == Constant.DataTypeColumn.SelectMultiple)
+                        filter += $"AND {syscol.SqlAlias}.{syscol.SqlColumnName} in ({col.Value})";
                 }
             }
             return filter;

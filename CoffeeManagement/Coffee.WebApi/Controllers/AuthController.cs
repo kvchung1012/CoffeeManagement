@@ -43,7 +43,6 @@ namespace Coffee.WebApi.Controllers
                 var hashed = BcryptHelper.GetPasswordHash(input.Password);
                 var checkPassword = BcryptHelper.VerifiedPassword(input.Password, user.HashedPassword);
                 if (!checkPassword) return Unauthorized("Tài khoản hoặc mật khẩu không chính xác");
-
             }
             catch (Exception)
             {

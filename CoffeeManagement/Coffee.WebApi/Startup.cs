@@ -17,6 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using Coffee.Application;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Coffee.Core.Exception;
 
 namespace Coffee.WebApi
 {
@@ -33,11 +34,14 @@ namespace Coffee.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers(option =>
+            {
+                option.Filters.Add(typeof(ValidateModelStateAttribute));
+                option.Filters.Add(typeof(HttpResponseExceptionFilterAttribute));
+            });
 
             services.AddDbContext<CoffeeDbContext>(options =>
                                                             options.UseSqlServer(Configuration.GetConnectionString("Default")));
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Coffee.WebApi", Version = "v1" });
