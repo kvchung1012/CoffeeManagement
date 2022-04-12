@@ -54,6 +54,12 @@ const routes: Routes = [
         loadChildren: () =>
           import('./permissions/permissions.module').then(m => m.PermissionsModule),
       },
+
+      {
+        path: 'category',
+        loadChildren: () =>
+          import('./category/category.module').then(m => m.CategoryModule),
+      },
     ],
   },
   {

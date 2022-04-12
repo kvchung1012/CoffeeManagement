@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { MaterialModule } from '../material.module';
-import { MaterialExtensionsModule } from '../material-extensions.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
@@ -14,14 +12,14 @@ import { NgProgressRouterModule } from 'ngx-progressbar/router';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { ToastrModule } from 'ngx-toastr';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
-import { PageHeaderComponent } from './components/page-header/page-header.component';
-import { ErrorCodeComponent } from './components/error-code/error-code.component';
-import { DisableControlDirective } from './directives/disable-control.directive';
-import { SafeUrlPipe } from './pipes/safe-url.pipe';
-import { ToObservablePipe } from './pipes/to-observable.pipe';
-
+import { MaterialModule } from 'app/routes/material/material.module';
+import { MaterialExtensionsModule } from 'app/material-extensions.module';
+import { BreadcrumbComponent } from '@shared/components/breadcrumb/breadcrumb.component';
+import { PageHeaderComponent } from '@shared/components/page-header/page-header.component';
+import { ErrorCodeComponent } from '@shared/components/error-code/error-code.component';
+import { DisableControlDirective } from '@shared/directives/disable-control.directive';
+import { SafeUrlPipe } from '@shared/pipes/safe-url.pipe';
+import { ToObservablePipe } from '@shared/pipes/to-observable.pipe';
 const MODULES: any[] = [
   CommonModule,
   RouterModule,

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Coffee.Application.Auth;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
