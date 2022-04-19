@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Coffee.Application
 {
-    public interface ISuppilerService
+    public interface ISupplierService
     {
-        public Task<ListResult<SuppilerDto>> GetListSuppiler(BaseParamModel baseParam);
-        public Task<int> CreateOrUpdateSuppiler(SuppilerDto suppiler);
+        public Task<ListResult<SupplierDto>> GetListSuppiler(BaseParamModel baseParam);
+        public Task<int> CreateOrUpdateSuppiler(SupplierDto suppiler);
         public Task<int> Delete(long Id);
     }
 }

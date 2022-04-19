@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace Coffee.Application
 {
-    public class SuppilerService : ISuppilerService
+    public class SupplierService : ISupplierService
     {
         private readonly IDbManager _db;
-        public SuppilerService(IDbManager db)
+        public SupplierService(IDbManager db)
         {
             _db = db;
         }
-        public async Task<int> CreateOrUpdateSuppiler(SuppilerDto suppiler)
+        public async Task<int> CreateOrUpdateSuppiler(SupplierDto suppiler)
         {
             var par = new DynamicParameters();
             par.Add("@Id", suppiler.Id);
@@ -39,13 +39,13 @@ namespace Coffee.Application
             return result;
         }
 
-        public async Task<ListResult<SuppilerDto>> GetListSuppiler(BaseParamModel baseParam)
+        public async Task<ListResult<SupplierDto>> GetListSuppiler(BaseParamModel baseParam)
         {
             var par = new DynamicParameters();
             par.AddBaseParam(baseParam);
-            var res = await _db.QueryAsync<SuppilerDto>("Sp_Get_GetListSuppiler", par);
+            var res = await _db.QueryAsync<SupplierDto>("Sp_Get_GetListSupplier", par);
             var totalCount = par.Get<int>("@TotalCount");
-            return new ListResult<SuppilerDto>(res, totalCount);
+            return new ListResult<SupplierDto>(res, totalCount);
         }
     }
 }

@@ -14,5 +14,6 @@ namespace Coffee.Application.Discount.Dto
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public long Status { get; set; }
+        public string StatusName { get; set; }
     }
 }

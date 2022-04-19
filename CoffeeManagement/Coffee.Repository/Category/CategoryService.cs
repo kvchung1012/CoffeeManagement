@@ -1,22 +1,26 @@
 ﻿using Coffee.Application.Category.Dtos;
 using Coffee.Application.Common.Dtos;
+using Coffee.Core.Auth;
 using Coffee.Core.BaseModel;
 using Coffee.Core.DbManager;
 using Dapper;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Coffee.Application.Category
+namespace Coffee.Application
 {
     public class CategoryService : ICategoryService
     {
         private readonly IDbManager _db;
-        public CategoryService(IDbManager db)
+        private readonly IHttpContextAccessor _httpContext;
+        public CategoryService(IDbManager db, IHttpContextAccessor httpContext)
         {
             _db = db;
+            _httpContext = httpContext;
         }
         public async Task<ListResult<CategoryDto>> GetListCategory(BaseParamModel baseParam)
         {
@@ -33,10 +37,10 @@ namespace Coffee.Application.Category
             par.Add("@Id", category.Id);
             par.Add("@Code", category.Code);
             par.Add("@Name", category.Name);
-            par.Add("@CreatedBy", 1);
-            par.Add("@UpdatedBy", 1);
+            par.Add("@CreatedBy", ((IdentityModel)_httpContext.HttpContext.User.Identity).Id);
+            par.Add("@UpdatedBy", ((IdentityModel)_httpContext.HttpContext.User.Identity).Id);
             par.Add("@Status", category.Status);
-            var result = await _db.ExecuteAsync("Sp_CreateUpdate_Category", par);
+            var result = await _db.ExecuteAsync("Sp_Create_Category", par);
             return result;
         }
 

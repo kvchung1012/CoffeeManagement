@@ -1,5 +1,4 @@
 ﻿using Coffee.Application;
-using Coffee.Application.Common;
 using Coffee.Core.BaseModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -7,26 +6,26 @@ using System.Threading.Tasks;
 
 namespace Coffee.WebApi.Controllers
 {
-    public class DiscountController : BaseController
+    public class SupplierController : BaseController
     {
-        public ILogger<DiscountController> _logger;
-        private readonly IDiscountService _discountService;
+        public ILogger<SupplierController> _logger;
+        private readonly ISupplierService _supplierService;
         private readonly ICommonService _commonService;
-        public DiscountController(ILogger<DiscountController> logger
-                                , IDiscountService discountService
+        public SupplierController(ILogger<SupplierController> logger
+                                , ISupplierService supplierService
                                 , ICommonService commonService)
         {
             _logger = logger;
-            _discountService = discountService;
+            _supplierService = supplierService;
             _commonService = commonService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetListDiscount(BaseParamModel baseParam)
+        public async Task<IActionResult> GetListSupplier(BaseParamModel baseParam)
         {
             baseParam.FilterString = await _commonService.GetFilterString(baseParam);
             baseParam.OrderBy = await _commonService.GetOrderBy(baseParam);
-            var result = await _discountService.GetListDiscount(baseParam);
+            var result = await _supplierService.GetListSuppiler(baseParam);
             return Ok(result);
         }
     }

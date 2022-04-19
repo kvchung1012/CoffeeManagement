@@ -4,14 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Coffee.Application.Suppiler.Dto
+namespace Coffee.Application.Common.Dtos
 {
-    public class SuppilerDto
+    public class SelectBoxDataDto
     {
         public long Id { get; set; }
-        public string Code { get; set; }
         public string Name { get; set; }
-        public DateTime CreatedTime { get; set; }
-        public long Status { get; set; }
     }
 }

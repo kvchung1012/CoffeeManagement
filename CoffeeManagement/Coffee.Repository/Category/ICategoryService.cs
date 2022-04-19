@@ -3,7 +3,7 @@ using Coffee.Core.BaseModel;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Coffee.Application.Category
+namespace Coffee.Application
 {
     public interface ICategoryService
     {

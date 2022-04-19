@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Coffee.Application.Common
+namespace Coffee.Application
 {
     public class CommonService : ICommonService
     {
@@ -25,20 +25,33 @@ namespace Coffee.Application.Common
             var par = new DynamicParameters();
             par.Add("@TableName", baseParamModel.TableConfigName);
             var res = await _db.QueryAsync<SystemTableColumn>("Sp_System_GetTableColumn", par);
-            if (baseParamModel.filterColumns.Count() > 0) return "";
+            if (baseParamModel.filterColumns == null) return "";
+            else if (baseParamModel.filterColumns.Count() == 0) return "";
 
             string filter = String.Empty;
-            foreach(var col in baseParamModel.filterColumns)
+            foreach (var col in baseParamModel.filterColumns)
             {
                 var syscol = res.Find(x => x.Id == col.ColumnId);
                 if (syscol != null)
                 {
-                    if(syscol.DataTypeId == Constant.DataTypeColumn.String) // là kiểu chuỗi
-                        filter += $"AND {syscol.SqlAlias}.{syscol.SqlColumnName} like N'%{col.Value}%";
-                    else if(syscol.DataTypeId == Constant.DataTypeColumn.Number || syscol.DataTypeId == Constant.DataTypeColumn.DateTime || syscol.DataTypeId == Constant.DataTypeColumn.Select)
+                    // là kiểu chuỗi
+                    if (syscol.DataTypeId == Constant.DataTypeColumn.String)
+                    {
+                        filter += $"AND {syscol.SqlAlias}.{syscol.SqlColumnName} like N'%{col.Value}%'";
+                    }
+                    else if(syscol.DataTypeId == Constant.DataTypeColumn.DateTime)
+                    {
+                        string shortDate = DateTime.Parse(col.Value).ToString("dd/MM/yyyy");
+                        filter += $"AND CONVERT(VARCHAR(10), {syscol.SqlAlias}.{syscol.SqlColumnName}, 103) = N'{shortDate}'";
+                    }
+                    else if (syscol.DataTypeId == Constant.DataTypeColumn.Number || syscol.DataTypeId == Constant.DataTypeColumn.Select)
+                    {
                         filter += $"AND {syscol.SqlAlias}.{syscol.SqlColumnName} = {col.Value}";
-                    else if(syscol.DataTypeId == Constant.DataTypeColumn.SelectMultiple)
+                    }
+                    else if (syscol.DataTypeId == Constant.DataTypeColumn.SelectMultiple)
+                    {
                         filter += $"AND {syscol.SqlAlias}.{syscol.SqlColumnName} in ({col.Value})";
+                    }
                 }
             }
             return filter;
@@ -51,6 +64,46 @@ namespace Coffee.Application.Common
             par.Add("@TableName", tableName);
             var res = await _db.QueryAsync<SystemTableColumn>("Sp_System_GetTableColumn", par);
             return res;
+        }
+
+        public async Task<List<SystemTableColumnDto>> GetTableColumnFilter(string tableName)
+        {
+            var par = new DynamicParameters();
+            par.Add("@TableName", tableName);
+            var res = await _db.QueryAsync<SystemTableColumnDto>("Sp_System_GetTableColumnFilter", par);
+            foreach (var item in res)
+            {
+                if (item.DataTypeId == Constant.DataTypeColumn.Select || item.DataTypeId == Constant.DataTypeColumn.SelectMultiple)
+                {
+                    if (!string.IsNullOrEmpty(item.QueryData))
+                    {
+                        var param = new DynamicParameters();
+                        item.SelectBoxData = await _db.QueryAsync<SelectBoxDataDto>(item.QueryData, par, null, System.Data.CommandType.Text);
+                    }
+                }
+            }
+            return res;
+        }
+
+        public async Task<string> GetOrderBy(BaseParamModel baseParamModel)
+        {
+            var par = new DynamicParameters();
+            par.Add("@TableName", baseParamModel.TableConfigName);
+            var res = await _db.QueryAsync<SystemTableColumn>("Sp_System_GetTableColumn", par);
+            var col = res.Find(x => x.Id == baseParamModel.SortBy);
+            if (col != null)
+            {
+                return $"{col.SqlAlias}.{col.SqlColumnName} " + (baseParamModel.IsAsc ? "" : "desc");
+            }
+            else return "";
+        }
+
+        public async Task<List<SelectBoxDataDto>> GetSelectBoxMasterData(long Id)
+        {
+            var par = new DynamicParameters();
+            par.Add("@Id", Id);
+            var result = await _db.QueryAsync<SelectBoxDataDto>("Sp_Get_MasterDataByGroupId",par);
+            return result;
         }
     }
 }

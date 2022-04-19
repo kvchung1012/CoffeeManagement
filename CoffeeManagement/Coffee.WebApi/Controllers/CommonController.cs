@@ -1,4 +1,4 @@
-﻿using Coffee.Application.Common;
+﻿using Coffee.Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -16,10 +16,24 @@ namespace Coffee.WebApi.Controllers
             _commonService = commonService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> GetListColumn(string columnName)
+        [HttpGet("{tableName}")]
+        public async Task<IActionResult> GetListColumn(string tableName)
         {
-            var result = await _commonService.GetTableColumns(columnName);
+            var result = await _commonService.GetTableColumns(tableName);
+            return Ok(result);
+        }
+
+        [HttpGet("{tableName}")]
+        public async Task<IActionResult> GetListColumnFilter(string tableName)
+        {
+            var result = await _commonService.GetTableColumnFilter(tableName);
+            return Ok(result);
+        }
+
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetMasterDataByGroupId(long Id)
+        {
+            var result = await _commonService.GetSelectBoxMasterData(Id);
             return Ok(result);
         }
     }

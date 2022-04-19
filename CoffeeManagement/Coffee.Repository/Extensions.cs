@@ -18,7 +18,7 @@ namespace Coffee.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddSingleton<IDbManager>(provider =>
+            services.AddTransient<IDbManager>(provider =>
             {
                 var Configuration = provider.GetService<IConfiguration>();
                 return new DbManager(Configuration);
@@ -32,6 +32,8 @@ namespace Coffee.Application
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IDiscountService, DiscountService>();
+            services.AddTransient<IMaterialService, MaterialService>();
+            services.AddTransient<ISupplierService, SupplierService>();
             return services;
         }
     }

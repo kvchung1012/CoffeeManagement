@@ -21,7 +21,7 @@ namespace Coffee.Core.Auth
                 Subject = new ClaimsIdentity(new[] {
                     new Claim("Id", payload.Id.ToString()),
                     new Claim("FullName", payload.FullName),
-                    new Claim("Username", payload.UserName),
+                    new Claim("UserName", payload.UserName),
                     new Claim("Email", payload.Email??""),
                     new Claim("Phone", payload.Phone),
                 }),
@@ -47,16 +47,12 @@ namespace Coffee.Core.Auth
             }, out SecurityToken validatedToken);
 
             var jwtToken = (JwtSecurityToken)validatedToken;
-            var userId = jwtToken.Claims.First(x => x.Type == "Id").Value;
-            var fullName = jwtToken.Claims.First(x => x.Type == "FullName").Value;
-            var userName = int.Parse(jwtToken.Claims.First(x => x.Type == "Username").Value);
-            var email = int.Parse(jwtToken.Claims.First(x => x.Type == "Email").Value);
-            var phone = int.Parse(jwtToken.Claims.First(x => x.Type == "Phone").Value);
+           
             var payload = new JwtPayloadModel()
             {
                 Id = long.Parse((jwtToken.Claims.First(x => x.Type == "Id").Value)),
-                FullName = jwtToken.Claims.First(x => x.Type == "Fullname").Value,
-                UserName = jwtToken.Claims.First(x => x.Type == "Username").Value,
+                FullName = jwtToken.Claims.First(x => x.Type == "FullName").Value,
+                UserName = jwtToken.Claims.First(x => x.Type == "UserName").Value,
                 Phone = jwtToken.Claims.First(x => x.Type == "Phone").Value,
                 Email = jwtToken.Claims.First(x => x.Type == "Email").Value,
             };

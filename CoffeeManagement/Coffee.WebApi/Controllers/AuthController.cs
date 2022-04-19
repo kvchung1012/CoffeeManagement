@@ -6,11 +6,12 @@ using Coffee.Application.Users.Dtos;
 using Coffee.Core.Auth;
 using Coffee.Core.BaseModel;
 using Coffee.Core.Helper;
+using Coffee.WebApi.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
-
+using Coffee.Application;
 namespace Coffee.WebApi.Controllers
 {
     public class AuthController : BaseController
@@ -87,16 +88,12 @@ namespace Coffee.WebApi.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> test(BaseParamModel baseParam)
+        [HttpGet("{Token}")]
+        [CustomAuthorize]
+        public async Task<IActionResult> InitApp(string token)
         {
-            baseParam.FilterString = await _commonService.GetFilterString(baseParam);
-            var (res, count) = await _userService.GetListUser(baseParam);
-            return Ok(new ListResult<UserDtos>
-            {
-                Result = res,
-                Count = count
-            });
+            // sau kiểm tra và đăng ký những thông tin cần thiết tại đây
+            return Ok(true);
         }
     }
 }

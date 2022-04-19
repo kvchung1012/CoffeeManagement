@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Coffee.Application.Material
+namespace Coffee.Application
 {
     public class MaterialService : IMaterialService
     {

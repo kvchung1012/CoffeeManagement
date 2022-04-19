@@ -1,5 +1,4 @@
-﻿using Coffee.Application.Auth;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +13,8 @@ namespace Coffee.Core.BaseModel
         public string FilterString { get; set; }
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
-        public int SortBy { get; set; }
+        public string OrderBy { get; set; }
+        public long SortBy { get; set; }
         public bool IsAsc { get; set; }
         public List<FilterColumn> filterColumns { get; set; }
     }

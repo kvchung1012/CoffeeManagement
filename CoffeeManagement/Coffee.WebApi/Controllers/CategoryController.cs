@@ -1,13 +1,15 @@
-﻿using Coffee.Application.Category;
+﻿using Coffee.Application;
 using Coffee.Application.Category.Dtos;
-using Coffee.Application.Common;
+using Coffee.Application;
 using Coffee.Core.BaseModel;
+using Coffee.WebApi.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace Coffee.WebApi.Controllers
 {
+    [CustomAuthorize]
     public class CategoryController : BaseController
     {
         public ILogger<CategoryController> _logger;
@@ -25,6 +27,8 @@ namespace Coffee.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> GetListCategory(BaseParamModel baseParam)
         {
+            baseParam.FilterString = await _commonService.GetFilterString(baseParam);
+            baseParam.OrderBy = await _commonService.GetOrderBy(baseParam);
             var result = await _categoryService.GetListCategory(baseParam);
             return Ok(result);
         }
@@ -36,7 +40,7 @@ namespace Coffee.WebApi.Controllers
             return Ok(result > 0);
         }
 
-        [HttpPost]
+        [HttpDelete("{Id}")]
         public async Task<IActionResult> Delete(long Id)
         {
             var result = await _categoryService.Delete(Id);

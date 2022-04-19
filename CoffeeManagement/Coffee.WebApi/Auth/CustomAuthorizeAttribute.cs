@@ -11,7 +11,7 @@ namespace Coffee.WebApi.Auth
 {
     public class CustomAuthorizeAttribute : TypeFilterAttribute
     {
-        public CustomAuthorizeAttribute(string role) : base(typeof(CustomAuthorizeActionFilter))
+        public CustomAuthorizeAttribute(string role = "") : base(typeof(CustomAuthorizeActionFilter))
         {
             Arguments = new object[] { role };
         }

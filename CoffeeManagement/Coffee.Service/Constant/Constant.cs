@@ -19,7 +19,7 @@ namespace Coffee.Core.Constant
             public static int String = 2;
             public static int Select = 3;
             public static int SelectMultiple = 4;
-            public static int DateTime = 6;
+            public static int DateTime = 5;
         }
 
         public static class ProductStatus

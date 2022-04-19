@@ -7,11 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Coffee.Application.Common
+namespace Coffee.Application
 {
     public interface ICommonService
     {
         Task<List<SystemTableColumn>> GetTableColumns(string tableName);
         Task<String> GetFilterString(BaseParamModel baseParamModel);
+        Task<String> GetOrderBy(BaseParamModel baseParamModel);
+        Task<List<SystemTableColumnDto>> GetTableColumnFilter(string tableName);
+        Task<List<SelectBoxDataDto>> GetSelectBoxMasterData(long Id);
+
     }
 }

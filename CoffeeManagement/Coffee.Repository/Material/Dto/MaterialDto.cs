@@ -11,8 +11,10 @@ namespace Coffee.Application.Material.Dto
         public long Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
-        public string Unit { get; set; }
+        public long Unit { get; set; }
+        public string UnitName { get; set; }
         public DateTime CreatedTime { get; set; }
         public long Status { get; set; }
+        public string StatusName { get; set; }
     }
 }
