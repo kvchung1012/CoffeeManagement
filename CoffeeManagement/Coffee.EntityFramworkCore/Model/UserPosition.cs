@@ -12,6 +12,6 @@ namespace Coffee.EntityFramworkCore.Model
         public long UserId { get; set; }
         public long PositionId { get; set; }
         public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
     }
 }

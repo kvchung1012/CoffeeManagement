@@ -27,7 +27,8 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<long?>("CreatedBy")
                         .HasColumnType("bigint");
@@ -39,7 +40,8 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("Status")
                         .HasColumnType("bigint");
@@ -62,6 +64,10 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
+
                     b.Property<long?>("CreatedBy")
                         .HasColumnType("bigint");
 
@@ -73,6 +79,10 @@ namespace Coffee.EntityFramworkCore.Migrations
 
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<bool>("SaleType")
                         .HasColumnType("bit");
@@ -97,7 +107,49 @@ namespace Coffee.EntityFramworkCore.Migrations
                     b.ToTable("Discounts");
                 });
 
-            modelBuilder.Entity("Coffee.EntityFramworkCore.Model.ImportInvoice", b =>
+            modelBuilder.Entity("Coffee.EntityFramworkCore.Model.ExportInvoice", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(512)");
+
+                    b.Property<long>("ExportTo")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(1024)");
+
+                    b.Property<long?>("Status")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExportInvoices");
+                });
+
+            modelBuilder.Entity("Coffee.EntityFramworkCore.Model.ExportInvoiceDetail", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -110,8 +162,59 @@ namespace Coffee.EntityFramworkCore.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<long>("ExportInvoiceId")
+                        .HasColumnType("bigint");
+
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<long?>("Status")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Stock")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("StockInWarehouse")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("WarehouseId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExportInvoiceDetails");
+                });
+
+            modelBuilder.Entity("Coffee.EntityFramworkCore.Model.ImportInvoice", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(1024)");
 
                     b.Property<long?>("Status")
                         .HasColumnType("bigint");
@@ -164,8 +267,8 @@ namespace Coffee.EntityFramworkCore.Migrations
                     b.Property<long>("Stock")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("TotalPrice")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<long?>("UpdatedBy")
                         .HasColumnType("bigint");
@@ -186,7 +289,8 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<long?>("CreatedBy")
                         .HasColumnType("bigint");
@@ -198,7 +302,8 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long>("ParentId")
                         .HasColumnType("bigint");
@@ -213,7 +318,7 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(512)");
 
                     b.HasKey("Id");
 
@@ -228,7 +333,8 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<long?>("CreatedBy")
                         .HasColumnType("bigint");
@@ -240,7 +346,8 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("Status")
                         .HasColumnType("bigint");
@@ -257,6 +364,97 @@ namespace Coffee.EntityFramworkCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Materials");
+                });
+
+            modelBuilder.Entity("Coffee.EntityFramworkCore.Model.Order", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal?>("ChangeMoney")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal?>("ReceiveMoney")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long?>("Status")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Coffee.EntityFramworkCore.Model.OrderDetail", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("OrderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PriceSale")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("Status")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Stock")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("Coffee.EntityFramworkCore.Model.PermissionRole", b =>
@@ -309,13 +507,14 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(1024)");
 
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<long>("ParentId")
                         .HasColumnType("bigint");
@@ -348,13 +547,14 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(1024)");
 
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<long>("ParentId")
                         .HasColumnType("bigint");
@@ -384,7 +584,8 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<long?>("CreatedBy")
                         .HasColumnType("bigint");
@@ -393,10 +594,10 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(1024)");
 
                     b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<bool>("IsCombo")
                         .HasColumnType("bit");
@@ -408,7 +609,8 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("Status")
                         .HasColumnType("bigint");
@@ -545,6 +747,9 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(256)");
+
                     b.Property<long?>("CreatedBy")
                         .HasColumnType("bigint");
 
@@ -554,8 +759,14 @@ namespace Coffee.EntityFramworkCore.Migrations
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(256)");
+
                     b.Property<long?>("Status")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<long?>("UpdatedBy")
                         .HasColumnType("bigint");
@@ -629,8 +840,8 @@ namespace Coffee.EntityFramworkCore.Migrations
                     b.Property<int>("ParentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Review")
-                        .HasColumnType("int");
+                    b.Property<string>("Review")
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<int>("Star")
                         .HasColumnType("int");
@@ -663,7 +874,7 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("IsDefault")
                         .HasColumnType("bit");
@@ -672,7 +883,8 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<long?>("Status")
                         .HasColumnType("bigint");
@@ -696,7 +908,8 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<long?>("CreatedBy")
                         .HasColumnType("bigint");
@@ -708,7 +921,8 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("Status")
                         .HasColumnType("bigint");
@@ -806,7 +1020,7 @@ namespace Coffee.EntityFramworkCore.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("EndTime")
+                    b.Property<DateTime?>("EndTime")
                         .HasColumnType("datetime2");
 
                     b.Property<bool?>("IsDeleted")
@@ -881,7 +1095,7 @@ namespace Coffee.EntityFramworkCore.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Birthday")
+                    b.Property<DateTime?>("Birthday")
                         .HasColumnType("datetime2");
 
                     b.Property<long?>("CreatedBy")
@@ -891,22 +1105,25 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
 
-                    b.Property<DateTime>("ExpriedForgotCode")
+                    b.Property<DateTime?>("ExpriedForgotCode")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ExpriedRefreshToken")
+                    b.Property<DateTime?>("ExpriedRefreshToken")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ForgotCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("HashedPassword")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1024)");
 
                     b.Property<string>("Identity")
                         .HasColumnType("nvarchar(max)");
@@ -917,11 +1134,12 @@ namespace Coffee.EntityFramworkCore.Migrations
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("LoginFailCount")
+                    b.Property<int?>("LoginFailCount")
                         .HasColumnType("int");
 
                     b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("RefreshToken")
                         .HasColumnType("nvarchar(max)");
@@ -936,7 +1154,8 @@ namespace Coffee.EntityFramworkCore.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(512)");
 
                     b.HasKey("Id");
 

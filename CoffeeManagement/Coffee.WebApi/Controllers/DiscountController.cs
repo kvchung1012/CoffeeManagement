@@ -1,5 +1,6 @@
 ﻿using Coffee.Application;
 using Coffee.Application.Common;
+using Coffee.Application.Discount.Dto;
 using Coffee.Core.BaseModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -27,6 +28,13 @@ namespace Coffee.WebApi.Controllers
             baseParam.FilterString = await _commonService.GetFilterString(baseParam);
             baseParam.OrderBy = await _commonService.GetOrderBy(baseParam);
             var result = await _discountService.GetListDiscount(baseParam);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateOrUpdate(CreateDiscountDto input)
+        {
+            var result = await _discountService.CreateOrUpdateDiscount(input);
             return Ok(result);
         }
     }

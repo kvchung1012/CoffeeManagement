@@ -13,5 +13,6 @@ namespace Coffee.Application
         public Task<ListResult<SupplierDto>> GetListSuppiler(BaseParamModel baseParam);
         public Task<int> CreateOrUpdateSuppiler(SupplierDto suppiler);
         public Task<int> Delete(long Id);
+        public Task<List<SupplierDto>> GetAll();
     }
 }

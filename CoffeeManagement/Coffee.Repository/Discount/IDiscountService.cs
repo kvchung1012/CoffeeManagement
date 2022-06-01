@@ -12,7 +12,7 @@ namespace Coffee.Application
     {
         public Task<ListResult<DiscountDto>> GetListDiscount(BaseParamModel baseParam);
         public Task<List<ProductDiscountDto>> GetListProductDiscount(long productId,long discountId);
-        public Task<int> CreateOrUpdateDiscount(DiscountDto discount);
+        public Task<long> CreateOrUpdateDiscount(CreateDiscountDto discount);
         public Task<int> Delete(long Id);
         public Task<int> CreateProductDiscount(ProductDiscountDto productDiscount);
         public Task<int> DeleteProductDiscount(long Id);

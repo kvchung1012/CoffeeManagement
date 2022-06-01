@@ -43,6 +43,13 @@ namespace Coffee.EntityFramworkCore
         public DbSet<RequestImport> RequestImports { get; set; }
         public DbSet<RequestImportDetail> RequestImportDetails { get; set; }
 
+        public DbSet<ExportInvoice> ExportInvoices { get; set; }
+        public DbSet<ExportInvoiceDetail> ExportInvoiceDetails { get; set; }
+
+        // quản lý bán hàng
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+
 
         // quản lý sản phẩm
 

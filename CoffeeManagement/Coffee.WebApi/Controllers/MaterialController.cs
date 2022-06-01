@@ -1,11 +1,14 @@
 ﻿using Coffee.Application;
+using Coffee.Application.Material.Dto;
 using Coffee.Core.BaseModel;
+using Coffee.WebApi.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace Coffee.WebApi.Controllers
 {
+    [CustomAuthorize]
     public class MaterialController : BaseController
     {
         public ILogger<MaterialController> _logger;
@@ -29,18 +32,18 @@ namespace Coffee.WebApi.Controllers
             return Ok(result);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> CreateUpdateCategory(CategoryDto category)
-        //{
-        //    var result = await _categoryService.CreateOrUpdateCategory(category);
-        //    return Ok(result > 0);
-        //}
+        [HttpPost]
+        public async Task<IActionResult> CreateUpdateMaterial(MaterialDto material)
+        {
+            var result = await _materialService.CreateOrUpdateMaterial(material);
+            return Ok(result > 0);
+        }
 
-        //[HttpDelete("{Id}")]
-        //public async Task<IActionResult> Delete(long Id)
-        //{
-        //    var result = await _categoryService.Delete(Id);
-        //    return Ok(result > 0);
-        //}
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> Delete(long Id)
+        {
+            var result = await _materialService.Delete(Id);
+            return Ok(result > 0);
+        }
     }
 }

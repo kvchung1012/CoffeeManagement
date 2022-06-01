@@ -52,6 +52,11 @@ namespace Coffee.Application
                     {
                         filter += $"AND {syscol.SqlAlias}.{syscol.SqlColumnName} in ({col.Value})";
                     }
+                    else if(syscol.DataTypeId == Constant.DataTypeColumn.CheckBox)
+                    {
+                        var val = col.Value == "true"?1:0;
+                        filter += $"AND {syscol.SqlAlias}.{syscol.SqlColumnName} = ({val})";
+                    }
                 }
             }
             return filter;
@@ -104,6 +109,13 @@ namespace Coffee.Application
             par.Add("@Id", Id);
             var result = await _db.QueryAsync<SelectBoxDataDto>("Sp_Get_MasterDataByGroupId",par);
             return result;
+        }
+
+        public async Task<List<SelectBoxDataDto>> GetSelectBoxData(string table)
+        {
+            var par = new DynamicParameters();
+            par.Add("@tableName", table);
+            return await _db.QueryAsync<SelectBoxDataDto>("sp_get_selectbox",par );
         }
     }
 }

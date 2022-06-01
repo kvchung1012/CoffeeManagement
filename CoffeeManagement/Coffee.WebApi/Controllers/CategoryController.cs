@@ -46,5 +46,12 @@ namespace Coffee.WebApi.Controllers
             var result = await _categoryService.Delete(Id);
             return Ok(result > 0);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var result = await _categoryService.GetAll();
+            return Ok(result);
+        }
     }
 }

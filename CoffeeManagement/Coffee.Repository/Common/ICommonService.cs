@@ -16,6 +16,7 @@ namespace Coffee.Application
         Task<String> GetOrderBy(BaseParamModel baseParamModel);
         Task<List<SystemTableColumnDto>> GetTableColumnFilter(string tableName);
         Task<List<SelectBoxDataDto>> GetSelectBoxMasterData(long Id);
+        Task<List<SelectBoxDataDto>> GetSelectBoxData(string table);
 
     }
 }

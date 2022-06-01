@@ -20,6 +20,8 @@ namespace Coffee.Core.Constant
             public static int Select = 3;
             public static int SelectMultiple = 4;
             public static int DateTime = 5;
+            public static int CheckBox = 6;
+
         }
 
         public static class ProductStatus
@@ -29,4 +31,6 @@ namespace Coffee.Core.Constant
             public static int OutStock = 3;
         }
     }
+
+
 }

@@ -17,19 +17,57 @@ namespace Coffee.Application
         {
             _db = db;
         }
-        public async Task<int> CreateOrUpdateDiscount(DiscountDto discount)
+        public async Task<long> CreateOrUpdateDiscount(CreateDiscountDto discount)
         {
-            var par = new DynamicParameters();
-            par.Add("@Id", discount.Id);
-            par.Add("@SaleType", discount.SaleType);
-            par.Add("@Value", discount.Value);
-            par.Add("@StartTime", discount.StartTime);
-            par.Add("@EndTime", discount.EndTime);
-            par.Add("@CreatedBy", 1);
-            par.Add("@UpdatedBy", 1);
-            par.Add("@Status", discount.Status);
-            var result = await _db.ExecuteAsync("Sp_CreateUpdate_Discount", par);
-            return result;
+            var con = _db.GetConnection;
+            if (con.State == System.Data.ConnectionState.Closed)
+                con.Open();
+            using (var transaction = con.BeginTransaction())
+            {
+                try
+                {
+                    var par = new DynamicParameters();
+                    par.AddOutputId(discount.Id);
+                    par.Add("@Code",discount.Code);
+                    par.Add("@Name",discount.Name);
+                    par.Add("@SaleType", discount.SaleType);
+                    par.Add("@Value", discount.Value);
+                    par.Add("@StartTime", discount.StartTime);
+                    par.Add("@EndTime", discount.EndTime);
+                    par.Add("@CreatedBy", 1);
+                    par.Add("@UpdatedBy", 1);
+                    par.Add("@Status", discount.Status);
+                    var result = await _db.ExecuteAsync("Sp_CreateUpdate_Discount", par,transaction);
+                    // thêm mới
+                    if (discount.Id == 0)
+                        discount.Id = par.GetOutputId();
+                    // cập nhật thì xóa những dòng cũ
+                    else
+                    {
+                        var param = new DynamicParameters();
+                        param.Add("@Id", discount.Id);
+                        var _ = await _db.ExecuteAsync("sp_del_productdiscount", param,transaction);
+                    }
+                    foreach(var item in discount.ProductDiscount)
+                    {
+                        var param = new DynamicParameters();
+                        param.Add("@ProductId", discount.Id);
+                        param.Add("@DiscountId", item);
+                        var _ = await _db.ExecuteAsync("Sp_Create_ProductDiscount", param,transaction);
+                    }
+                    transaction.Commit();
+                    return discount.Id;
+                }
+                catch(Exception ex)
+                {
+                    transaction.Rollback();
+                    return -1;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
         }
 
         public async Task<int> CreateProductDiscount(ProductDiscountDto productDiscount)

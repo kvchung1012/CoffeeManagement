@@ -40,7 +40,7 @@ namespace Coffee.Application
             par.Add("@CreatedBy", ((IdentityModel)_httpContext.HttpContext.User.Identity).Id);
             par.Add("@UpdatedBy", ((IdentityModel)_httpContext.HttpContext.User.Identity).Id);
             par.Add("@Status", category.Status);
-            var result = await _db.ExecuteAsync("Sp_Create_Category", par);
+            var result = await _db.ExecuteAsync("Sp_CreateUpdate_Category", par);
             return result;
         }
 
@@ -50,6 +50,12 @@ namespace Coffee.Application
             par.Add("@Id", Id);
             var result = await _db.ExecuteAsync("Sp_Del_Category", par);
             return result;
+        }
+
+
+        public async Task<List<SelectBoxDataDto>> GetAll()
+        {
+            return await _db.QueryAsync<SelectBoxDataDto>("select Id,Name from Categories where IsDeleted = 0", null, null, System.Data.CommandType.Text);
         }
     }
 }

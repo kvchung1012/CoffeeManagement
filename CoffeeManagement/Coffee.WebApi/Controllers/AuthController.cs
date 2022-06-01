@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 using Coffee.Application;
+using Microsoft.AspNetCore.Authorization;
+
 namespace Coffee.WebApi.Controllers
 {
     public class AuthController : BaseController
@@ -31,6 +33,7 @@ namespace Coffee.WebApi.Controllers
             _commonService = commonService;
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginDto input)
         {

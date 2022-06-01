@@ -1,5 +1,7 @@
-﻿using Coffee.Core.BaseModel;
+﻿using Coffee.Core.Auth;
+using Coffee.Core.BaseModel;
 using Dapper;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +20,24 @@ namespace Coffee.Core.DbManager
             par.Add("@OrderBy", baseParam.OrderBy);
             par.Add("@TotalCount", 0, System.Data.DbType.Int32, System.Data.ParameterDirection.Output);
             return par;
-        } 
+        }
+
+        public static DynamicParameters AddOutputId(this DynamicParameters par, long Id)
+        {
+            par.Add("@Id",Id,System.Data.DbType.Int64,System.Data.ParameterDirection.InputOutput);
+            return par;
+        }
+
+        public static long GetOutputId(this DynamicParameters par)
+        {
+            return par.Get<long>("@Id");
+        }
+
+        public static DynamicParameters AddCreatedByDefault(this DynamicParameters par, IHttpContextAccessor _httpContextAccessor)
+        {
+            par.Add("@CreatedBy", ((IdentityModel)_httpContextAccessor.HttpContext.User.Identity).Id);
+            par.Add("@UpdatedBy", ((IdentityModel)_httpContextAccessor.HttpContext.User.Identity).Id);
+            return par;
+        }
     }
 }

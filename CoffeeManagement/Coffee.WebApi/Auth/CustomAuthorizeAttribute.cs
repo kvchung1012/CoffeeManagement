@@ -1,5 +1,6 @@
 ﻿using Coffee.Core.Auth;
 using Coffee.Core.Exception;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
@@ -35,6 +36,10 @@ namespace Coffee.WebApi.Auth
         {
             try
             {
+                // kiểm tra xem có attribute anonymouse không
+                if (context.ActionDescriptor.EndpointMetadata.OfType<AllowAnonymousAttribute>().Any()) 
+                    return;
+
                 //Lấy token từ header
                 var token = context.HttpContext.Request.Headers["Authorization"].ToString();
                 if (string.IsNullOrEmpty(token)) token = "Bearer " + context.HttpContext.Request.Cookies["Authorization"];

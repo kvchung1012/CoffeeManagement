@@ -1,7 +1,9 @@
 ﻿using Coffee.Application.Material.Dto;
+using Coffee.Core.Auth;
 using Coffee.Core.BaseModel;
 using Coffee.Core.DbManager;
 using Dapper;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +15,11 @@ namespace Coffee.Application
     public class MaterialService : IMaterialService
     {
         private readonly IDbManager _db;
-        public MaterialService(IDbManager db)
+        private readonly IHttpContextAccessor _httpContext;
+        public MaterialService(IDbManager db, IHttpContextAccessor httpContext)
         {
             _db = db;
+            _httpContext = httpContext;
         }
         public async Task<int> CreateOrUpdateMaterial(MaterialDto material)
         {
@@ -24,8 +28,8 @@ namespace Coffee.Application
             par.Add("@Code", material.Code);
             par.Add("@Name", material.Name);
             par.Add("@Unit", material.Unit);
-            par.Add("@CreatedBy", 1);
-            par.Add("@UpdatedBy", 1);
+            par.Add("@CreatedBy", ((IdentityModel)_httpContext.HttpContext.User.Identity).Id);
+            par.Add("@UpdatedBy", ((IdentityModel)_httpContext.HttpContext.User.Identity).Id);
             par.Add("@Status", material.Status);
             var result = await _db.ExecuteAsync("Sp_CreateUpdate_Material", par);
             return result;
@@ -35,7 +39,7 @@ namespace Coffee.Application
         {
             var par = new DynamicParameters();
             par.Add("@Id", Id);
-            var result = await _db.ExecuteAsync("Sp_del_ProductDiscount", par);
+            var result = await _db.ExecuteAsync("Sp_del_material", par);
             return result;
         }
 

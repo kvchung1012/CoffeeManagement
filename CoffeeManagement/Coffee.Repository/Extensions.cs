@@ -30,10 +30,15 @@ namespace Coffee.Application
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ICategoryService, CategoryService>();
-            services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IDiscountService, DiscountService>();
             services.AddTransient<IMaterialService, MaterialService>();
             services.AddTransient<ISupplierService, SupplierService>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IPermissionService, PermissionService>();
+            services.AddTransient<IPositionService, PositionService>();
+            services.AddTransient<IImportInvoiceService, ImportInvoiceService>();
+            services.AddTransient<IWareHouseService, WareHouseService>();
             return services;
         }
     }

@@ -18,6 +18,7 @@ using Coffee.Application;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Coffee.Core.Exception;
+using Coffee.Core.DbManager;
 
 namespace Coffee.WebApi
 {
@@ -33,7 +34,6 @@ namespace Coffee.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers(option =>
             {
                 option.Filters.Add(typeof(ValidateModelStateAttribute));
@@ -101,7 +101,7 @@ namespace Coffee.WebApi
                 options.AddPolicy(name: "AllowAllOrigins",
                                   builder =>
                                   {
-                                      builder.WithOrigins("http://localhost:4200/")
+                                      builder.WithOrigins("*")
                                       .AllowAnyOrigin()
                                       .AllowAnyHeader()
                                       .AllowAnyMethod();
@@ -127,7 +127,7 @@ namespace Coffee.WebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseStaticFiles();
 
             app.UseCors("AllowAllOrigins");
 
