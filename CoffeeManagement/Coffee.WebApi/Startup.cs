@@ -17,8 +17,8 @@ using Microsoft.EntityFrameworkCore;
 using Coffee.Application;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Coffee.Core.Exception;
 using Coffee.Core.DbManager;
+using Coffee.Core;
 
 namespace Coffee.WebApi
 {
@@ -39,6 +39,8 @@ namespace Coffee.WebApi
                 option.Filters.Add(typeof(ValidateModelStateAttribute));
                 option.Filters.Add(typeof(HttpResponseExceptionFilterAttribute));
             });
+
+            services.Configure<Application.Mail.Dto.MailSettings>(Configuration.GetSection("MailSettings"));
 
             services.AddDbContext<CoffeeDbContext>(options =>
                                                             options.UseSqlServer(Configuration.GetConnectionString("Default")));
@@ -120,9 +122,9 @@ namespace Coffee.WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Coffee.WebApi v1"));
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Coffee.WebApi v1"));
 
             app.UseHttpsRedirection();
 

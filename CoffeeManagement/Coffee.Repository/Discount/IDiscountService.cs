@@ -16,5 +16,6 @@ namespace Coffee.Application
         public Task<int> Delete(long Id);
         public Task<int> CreateProductDiscount(ProductDiscountDto productDiscount);
         public Task<int> DeleteProductDiscount(long Id);
+        public Task<CreateDiscountDto> GetDiscountById(long Id);
     }
 }

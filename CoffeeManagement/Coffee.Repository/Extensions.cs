@@ -1,13 +1,10 @@
 ﻿using Coffee.Application.Auth;
-using Coffee.Application.Category;
-using Coffee.Application.Common;
-using Coffee.Application.Users;
-using Coffee.Core.Auth;
 using Coffee.Core.DbManager;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +20,6 @@ namespace Coffee.Application
                 var Configuration = provider.GetService<IConfiguration>();
                 return new DbManager(Configuration);
             });
-
             //services.AddSingleton<ICheckPermission, CheckPermission>();
             // dependency injection
             services.AddTransient<ICommonService, CommonService>();
@@ -39,6 +35,9 @@ namespace Coffee.Application
             services.AddTransient<IPositionService, PositionService>();
             services.AddTransient<IImportInvoiceService, ImportInvoiceService>();
             services.AddTransient<IWareHouseService, WareHouseService>();
+            services.AddTransient<ISaleCodeService, SaleCodeService>();
+            services.AddTransient<IPaymentGatewayService, PaymentGatewayService>();
+            services.AddTransient<IMailService, MailService>();
             return services;
         }
     }

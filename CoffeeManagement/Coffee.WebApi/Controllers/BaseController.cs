@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Coffee.WebApi.Controllers
 {
     [ApiController]
-    [CustomAuthorize]
+    [CustomAuthorize("System.Login")]
     [Route("[controller]/[action]")]
     public class BaseController : ControllerBase
     {

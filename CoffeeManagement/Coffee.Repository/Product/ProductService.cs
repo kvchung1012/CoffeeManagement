@@ -40,7 +40,7 @@ namespace Coffee.Application
                     param.Add("@IsCombo", product.IsCombo);
                     param.Add("@IsTop", product.IsTop);
                     param.Add("@Status", product.Status);
-                    var result = await _db.ExecuteAsync("Sp_CreateUpdate_Product", param,transaction);
+                    var result = await _db.ExecuteAsync("Sp_CreateUpdate_Product", param, transaction);
                     if (product.Id == 0)
                         product.Id = param.GetOutputId();
 
@@ -58,7 +58,7 @@ namespace Coffee.Application
                             var par = new DynamicParameters();
                             par.Add("@ProductId", product.Id);
                             par.Add("@@ProductRefId", item.ProductRefId);
-                            result = await _db.ExecuteAsync("Sp_Create_ProductCombo", par,transaction);
+                            result = await _db.ExecuteAsync("Sp_Create_ProductCombo", par, transaction);
                         }
                     }
                     foreach (var item in product.ProductPrice)
@@ -68,7 +68,7 @@ namespace Coffee.Application
                         par.Add("@Price", item.Price);
                         par.Add("@StartTime", item.StartTime);
                         par.Add("@EndTime", item.EndTime);
-                        result = await _db.ExecuteAsync("Sp_Create_ProductPrice", par,transaction);
+                        result = await _db.ExecuteAsync("Sp_Create_ProductPrice", par, transaction);
                     }
                     transaction.Commit();
                     return product.Id;
@@ -84,7 +84,7 @@ namespace Coffee.Application
                     con.Close();
                 }
             }
-            
+
         }
 
         public Task<int> Delete(long Id)
@@ -129,6 +129,25 @@ namespace Coffee.Application
             var par = new DynamicParameters();
             var res = await _db.QueryAsync<ProductDto>("Sp_Get_GetTopProduct", par);
             return res;
+        }
+
+        public async Task<List<ProductDto>> GetTopProductClient()
+        {
+            var par = new DynamicParameters();
+            var res = await _db.QueryAsync<ProductDto>("Sp_Get_GetTopProductClient", par);
+            return res;
+        }
+
+        public async Task<ListResult<ProductDto>> GetProductClient(long categoryId, long fetch, long offset)
+        {
+            long totalCount = 0;
+            var par = new DynamicParameters();
+            par.Add("@CategoryId", categoryId);
+            par.Add("@Fetch", fetch);
+            par.Add("@Offset", offset);
+            par.Add("@TotalCount", totalCount);
+            var res = await _db.QueryAsync<ProductDto>("Sp_Get_GetProductClient", par);
+            return new ListResult<ProductDto>(res, par.Get<long>("@TotalCount"));
         }
     }
 }

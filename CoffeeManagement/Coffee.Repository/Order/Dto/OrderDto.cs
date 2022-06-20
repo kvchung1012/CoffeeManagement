@@ -35,7 +35,7 @@ namespace Coffee.Application.Order.Dto
         public string CustomerName { get; set; }
         public string CustomerPhone { get; set; }
         public string CustomerEmail { get; set; }
-
+        public string? SaleCode { get; set; }
         public List<ProductCart> Products { get; set; }
     }
 

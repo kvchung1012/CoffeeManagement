@@ -23,6 +23,8 @@ namespace Coffee.EntityFramworkCore.Model
         /// </summary>
         public long? UserId { get; set; }
 
+        public long ? SaleCodeId { get; set; }
+
         /// <summary>
         /// Tổng tiền hóa đơn
         /// </summary>

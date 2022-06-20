@@ -32,7 +32,7 @@ namespace Coffee.Application
                 {
                     var par = new DynamicParameters();
                     par.AddOutputId(createExportInvoiceDto.Id);
-                    par.Add("@Code", $"COFFEX{DateTime.Now.ToString("ddMMyyHHmmss")}");
+                    par.Add("@Code", $"COFFEX{DateTime.Now.Ticks}");
                     par.Add("@Description", createExportInvoiceDto.Description);
                     par.Add("@Note", createExportInvoiceDto.Note);
                     par.Add("@ExportTo", createExportInvoiceDto.ExportTo);

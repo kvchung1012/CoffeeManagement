@@ -19,5 +19,7 @@ namespace Coffee.Application
         public Task<List<SelectBoxDataDto>> GetListSelectBox(int Id);
 
         public Task<List<ProductDto>> GetTopProduct();
+        public Task<List<ProductDto>> GetTopProductClient();
+        public Task<ListResult<ProductDto>> GetProductClient(long categoryId, long fetch, long offset);
     }
 }

@@ -18,13 +18,24 @@ namespace Coffee.EntityFramworkCore.Model
         [Required]
         [Column(TypeName = "nvarchar(256)")]
         public string Code { get; set; }
+
         public bool SaleType { get; set; }
 
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Value { get; set; }
+        
         public long Stock { get; set; }
+        
         public long StockByUser { get; set; }
+        
         public DateTime StartTime { get; set; }
+        
         public DateTime? EndTime { get; set; }
+
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal? MinPrice { get; set; }
+
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal? MaxPriceSale { get; set; }
     }
 }

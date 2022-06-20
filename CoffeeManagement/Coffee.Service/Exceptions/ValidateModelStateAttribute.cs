@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Coffee.Core.Exception
+namespace Coffee.Core
 {
     public class ValidateModelStateAttribute : ActionFilterAttribute
     {

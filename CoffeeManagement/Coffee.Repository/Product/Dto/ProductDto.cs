@@ -52,7 +52,7 @@ namespace Coffee.Application.Product.Dto
         public int ProductId { get; set; }
         public decimal Price { get; set; }
         public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
     }
 
 }

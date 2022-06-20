@@ -10,5 +10,6 @@ namespace Coffee.Application.Auth
     public interface IAuthService
     {
         public Task<EntityFramworkCore.Model.Users> GetUserByUserName(UserLoginDto input);
+        public Task<bool> CheckPermission(long userId, string permission);
     }
 }

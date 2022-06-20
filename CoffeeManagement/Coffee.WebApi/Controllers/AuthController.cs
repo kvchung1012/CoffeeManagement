@@ -38,6 +38,7 @@ namespace Coffee.WebApi.Controllers
         public async Task<IActionResult> Login(UserLoginDto input)
         {
             var user = await _authService.GetUserByUserName(input);
+            var check = false;
             // người dùng không tồn tại
             if (user is null)
                 return Unauthorized("Tài khoản hoặc mật khẩu không chính xác");
@@ -45,8 +46,15 @@ namespace Coffee.WebApi.Controllers
             try
             {
                 var hashed = BcryptHelper.GetPasswordHash(input.Password);
+                // kiểm tra xem có đúng mật khẩu không
                 var checkPassword = BcryptHelper.VerifiedPassword(input.Password, user.HashedPassword);
                 if (!checkPassword) return Unauthorized("Tài khoản hoặc mật khẩu không chính xác");
+
+                // kiểm tra xem có quyền truy cập vào hệ thống không
+                check = await _authService.CheckPermission(user.Id, "System.Login");
+                //if (!check)
+                //    return Unauthorized("Tài khoản không có quyền truy cập hệ thống");
+                // kiểm tra xem tài khoản có đc active không
             }
             catch (Exception)
             {
@@ -69,7 +77,7 @@ namespace Coffee.WebApi.Controllers
             //Lưu token vào cache để kiểm tra nhanh hơn
             //await _cacheManager.SetAsync(AuthHelper.GetNameCacheToken(signature), true, AuthHelper.TimeLife);
             //HttpContext.Response.Cookies.Append(AuthHelper.AuthorizationName, $"{token}");
-            return Ok(new JwtResultModel(token));
+            return Ok(new JwtResultModel(token, check));
         }
 
 

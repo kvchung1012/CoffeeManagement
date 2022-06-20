@@ -8,11 +8,13 @@ namespace Coffee.Core.Auth
 {
     public class JwtResultModel
     {
+        public bool IsSystemLogin { get; set; }
         public string AccessToken { get; set; }
         public int ExpriedIn { get => 60 * 60 * 1; }
-        public JwtResultModel(string accessToken)
+        public JwtResultModel(string accessToken,bool isSystemLogin)
         {
             AccessToken = accessToken;
+            IsSystemLogin = isSystemLogin;
         }
     }
 }

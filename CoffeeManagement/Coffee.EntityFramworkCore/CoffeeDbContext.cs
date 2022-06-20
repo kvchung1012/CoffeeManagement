@@ -20,7 +20,6 @@ namespace Coffee.EntityFramworkCore
 
 
         // define system
-
         public DbSet<SystemTable> SystemTables { get; set; }
         public DbSet<SystemTableColumn> SystemTableColumns { get; set; }
         public DbSet<MasterData> MasterDatas { get; set; }
@@ -49,10 +48,10 @@ namespace Coffee.EntityFramworkCore
         // quản lý bán hàng
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<SaleCode> SaleCodes { get; set; }
 
 
         // quản lý sản phẩm
-
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductPrice> ProductPrices { get; set; }
@@ -61,6 +60,5 @@ namespace Coffee.EntityFramworkCore
         public DbSet<ProductDiscount> ProductDiscounts { get; set; }
         public DbSet<ReviewProduct> ReviewProducts { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
-
     }
 }

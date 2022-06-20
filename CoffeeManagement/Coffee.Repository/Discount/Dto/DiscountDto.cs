@@ -14,7 +14,7 @@ namespace Coffee.Application.Discount.Dto
         public bool SaleType { get; set; }
         public decimal Value { get; set; }
         public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
         public long Status { get; set; }
         public string StatusName { get; set; }
     }
@@ -27,8 +27,13 @@ namespace Coffee.Application.Discount.Dto
         public bool SaleType { get; set; }
         public decimal Value { get; set; }
         public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
         public long Status { get; set; }
         public List<int> ProductDiscount { get; set; }
+    }
+
+    public class GetDetailDiscount : DiscountDto
+    {
+        public List<int> ListProduct { get; set; }
     }
 }

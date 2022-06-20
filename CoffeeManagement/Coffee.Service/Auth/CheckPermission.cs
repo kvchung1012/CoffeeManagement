@@ -10,10 +10,10 @@ namespace Coffee.Core.Auth
 {
     public class CheckPermission : ICheckPermission
     {
-      //  private readonly CoffeeDbContext _dbContext;
+        private readonly CoffeeDbContext _dbContext;
         public CheckPermission(CoffeeDbContext dbContext)
         {
-        //    _dbContext = dbContext;
+            _dbContext = dbContext;
         }
         public async Task<bool> CheckPermissionAsync(long userId, string role)
         {

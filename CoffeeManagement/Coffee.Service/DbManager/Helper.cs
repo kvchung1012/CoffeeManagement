@@ -24,7 +24,7 @@ namespace Coffee.Core.DbManager
 
         public static DynamicParameters AddOutputId(this DynamicParameters par, long Id)
         {
-            par.Add("@Id",Id,System.Data.DbType.Int64,System.Data.ParameterDirection.InputOutput);
+            par.Add("@Id", Id, System.Data.DbType.Int64, System.Data.ParameterDirection.InputOutput);
             return par;
         }
 
@@ -35,8 +35,16 @@ namespace Coffee.Core.DbManager
 
         public static DynamicParameters AddCreatedByDefault(this DynamicParameters par, IHttpContextAccessor _httpContextAccessor)
         {
-            par.Add("@CreatedBy", ((IdentityModel)_httpContextAccessor.HttpContext.User.Identity).Id);
-            par.Add("@UpdatedBy", ((IdentityModel)_httpContextAccessor.HttpContext.User.Identity).Id);
+            try
+            {
+                par.Add("@CreatedBy", ((IdentityModel)_httpContextAccessor.HttpContext.User.Identity).Id);
+                par.Add("@UpdatedBy", ((IdentityModel)_httpContextAccessor.HttpContext.User.Identity).Id);
+            }
+            catch
+            {
+                par.Add("@CreatedBy", 0);
+                par.Add("@UpdatedBy", 0);
+            }
             return par;
         }
     }

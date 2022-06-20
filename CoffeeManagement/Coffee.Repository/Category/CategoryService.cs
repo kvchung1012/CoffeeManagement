@@ -55,7 +55,7 @@ namespace Coffee.Application
 
         public async Task<List<SelectBoxDataDto>> GetAll()
         {
-            return await _db.QueryAsync<SelectBoxDataDto>("select Id,Name from Categories where IsDeleted = 0", null, null, System.Data.CommandType.Text);
+            return await _db.QueryAsync<SelectBoxDataDto>("select Id,Name from Categories where IsDeleted = 0 and Status = 2", null, null, System.Data.CommandType.Text);
         }
     }
 }

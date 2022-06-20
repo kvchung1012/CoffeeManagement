@@ -1,5 +1,6 @@
-﻿using Coffee.Core.Auth;
-using Coffee.Core.Exception;
+﻿using Coffee.Application.Auth;
+using Coffee.Core;
+using Coffee.Core.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -63,20 +64,7 @@ namespace Coffee.WebApi.Auth
                     });
                 }
                 string signature = token.Split(".").Last();
-
-                //var _cacheManager = (ICacheManager)context.HttpContext.RequestServices.GetService(typeof(ICacheManager));
-                //var isValidSignature = Task.Run(async () => await _cacheManager.GetAsync<bool>(AuthHelper.GetNameCacheToken(signature))).Result;
-                //// Nếu chữ ký hết hạn sẽ trả về chưa được Auth
-                //if (!isValidSignature)
-                //{
-                //    context.HttpContext.Response.ContentType = "application/json";
-                //    context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                //    context.Result = new JsonResult(new ExceptionResultModel
-                //    {
-                //        Message = new[] { "Chưa đăng nhập" }
-                //    });
-                //    return;
-                //}
+                
                 //Lấy thông tin từ token
                 var tokenPayload = JwtHelper.ValidateToken(token);
                 // Lấy thông tin người dùng gán vào http context
@@ -96,9 +84,9 @@ namespace Coffee.WebApi.Auth
                 //Kiểm tra quyền người dùng yêu cầu
                 if (!string.IsNullOrEmpty(_role))
                 {
-                    var _checkPermission = (ICheckPermission)context.HttpContext.RequestServices.GetService(typeof(ICheckPermission));
+                    var _checkPermission = (IAuthService)context.HttpContext.RequestServices.GetService(typeof(IAuthService));
                     var allow = Task.Run(
-                        async () => await _checkPermission.CheckPermissionAsync(UserInfo.Id,_role)
+                        async () => await _checkPermission.CheckPermission(UserInfo.Id,_role)
                         ).Result;
                     if (allow != true)
                     {

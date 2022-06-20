@@ -13,6 +13,6 @@ namespace Coffee.Application
         public Task<ListResult<OrderDto>> GetListOrder(BaseParamModel baseParam);
         public Task<List<OrderDetailDto>> GetListOrderDetail(long Id);
         public Task<OrderFullDto> GetListOrderById(long Id);
-        public Task<long> CreateCart(CreateCart input);
+        public Task<long> CreateCart(CreateCart input, long status);
     }
 }

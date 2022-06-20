@@ -79,8 +79,8 @@ namespace Coffee.WebApi.Controllers
         [HttpGet("{year}/{month}")]
         public async Task<IActionResult> GetRevueneByMonth(int year, int month)
         {
-            year = year == null ? DateTime.Now.Year : year;
-            month = month == null ? DateTime.Now.Month : month;
+            year = year == null || year == 0 ? DateTime.Now.Year : year;
+            month = month == null || month == 0 ? DateTime.Now.Month : month;
             var revueneInYear = _dbContext.Orders.Where(x => x.CreatedTime.Value.Year == year && x.CreatedTime.Value.Month == month);
             var revueneMonth = revueneInYear.GroupBy(p => p.CreatedTime.Value.Day, p => p.TotalPrice, (key, g) =>
               new
@@ -88,8 +88,9 @@ namespace Coffee.WebApi.Controllers
                   day = key,
                   money = g.Sum()
               });
-            decimal[] arr = new decimal[12];
-            for (int i = 0; i < 31; i++)
+            var countDay = DateTime.DaysInMonth(year, month);
+            decimal[] arr = new decimal[countDay + 1];
+            for (int i = 0; i < countDay; i++)
             {
                 if (revueneMonth.Any(x => x.day == i + 1))
                 {

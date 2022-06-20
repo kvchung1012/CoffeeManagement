@@ -4,6 +4,7 @@ using Coffee.Core.BaseModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
+using static Coffee.Core.Constant.Constant;
 
 namespace Coffee.WebApi.Controllers
 {
@@ -48,7 +49,7 @@ namespace Coffee.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateOrder(CreateCart input)
         {
-            var result = await _orderService.CreateCart(input);
+            var result = await _orderService.CreateCart(input,CartStatus.Success);
             return Ok(result);
         }
     }

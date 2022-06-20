@@ -37,5 +37,12 @@ namespace Coffee.WebApi.Controllers
             var result = await _discountService.CreateOrUpdateDiscount(input);
             return Ok(result);
         }
+
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetDiscountById(long Id)
+        {
+            var result = await _discountService.GetDiscountById(Id);
+            return Ok(result);
+        }
     }
 }

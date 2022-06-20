@@ -17,6 +17,16 @@ namespace Coffee.Application.Auth
         {
             _db = db;
         }
+
+        public async Task<bool> CheckPermission(long userId, string permission)
+        {
+            var param = new DynamicParameters();
+            param.Add("@UserId", userId);
+            param.Add("@Permission", permission);
+            var check = await _db.QueryFirstOrDefaultAsync<int>("Sp_Check_CheckUserPermission", param);
+            return check == 1;
+        }
+
         public async Task<EntityFramworkCore.Model.Users> GetUserByUserName(UserLoginDto input)
         {
             var param = new DynamicParameters();
@@ -24,5 +34,7 @@ namespace Coffee.Application.Auth
             var user = await _db.QueryFirstOrDefaultAsync<EntityFramworkCore.Model.Users>("sp_auth_getUserByUserName", param);
             return user;
         }
+
+
     }
 }

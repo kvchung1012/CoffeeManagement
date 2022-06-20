@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Coffee.Core.Exception
+namespace Coffee.Core
 {
     public class ExceptionResultModel
     {

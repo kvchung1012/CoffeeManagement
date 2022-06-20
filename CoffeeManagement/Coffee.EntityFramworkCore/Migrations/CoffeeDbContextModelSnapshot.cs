@@ -392,6 +392,9 @@ namespace Coffee.EntityFramworkCore.Migrations
                     b.Property<decimal?>("ReceiveMoney")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<long?>("SaleCodeId")
+                        .HasColumnType("bigint");
+
                     b.Property<long?>("Status")
                         .HasColumnType("bigint");
 
@@ -898,6 +901,68 @@ namespace Coffee.EntityFramworkCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("Coffee.EntityFramworkCore.Model.SaleCode", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("EndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal?>("MaxPriceSale")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("MinPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(512)");
+
+                    b.Property<bool>("SaleType")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("Status")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Stock")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("StockByUser")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SaleCodes");
                 });
 
             modelBuilder.Entity("Coffee.EntityFramworkCore.Model.Supplier", b =>

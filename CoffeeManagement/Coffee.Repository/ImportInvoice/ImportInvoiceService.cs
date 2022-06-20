@@ -30,7 +30,7 @@ namespace Coffee.Application
             {
                 try
                 {
-                    var code = $"COFFIM{DateTime.Now.ToString("ddMMyyyyHHmmss")}";
+                    var code = $"COFFIM{DateTime.Now.Ticks}";
                     var par = new DynamicParameters();
                     par.AddOutputId(createImport.Id);
                     par.Add("@Code", code);
